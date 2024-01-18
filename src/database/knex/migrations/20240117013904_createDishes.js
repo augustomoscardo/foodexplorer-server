@@ -7,7 +7,7 @@ exports.up = knex => knex.schema.createTable('dishes', table => {
   table.text('name').notNullable()
   table.text('description').notNullable()
   table.decimal('price').notNullable()
-  table.text('avatar').notNullable()
+  table.text('avatar')
 
   table.integer('user_id').references('id').inTable('users')
 
