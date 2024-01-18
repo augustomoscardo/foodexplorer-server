@@ -2,7 +2,7 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.up = knex => knex.schema.createTable('tags', table => {
+exports.up = knex => knex.schema.createTable('ingredients', table => {
   table.increments('id')
   table.text('name').notNullable()
 

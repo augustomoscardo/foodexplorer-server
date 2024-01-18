@@ -11,8 +11,8 @@ exports.up = knex => knex.schema.createTable('users', table => {
     .enum('role', ['admin', 'user'], { useNative: true, enumName: 'roles' })
     .notNullable().defaultTo('user')
 
-  table.timestamp('created_at').defaultTo(knex.fn.now)
-  table.timestamp('uodated_at').defaultTo(knex.fn.now)
+  table.timestamp('created_at').defaultTo(knex.fn.now())
+  table.timestamp('updated_at').defaultTo(knex.fn.now())
 });
 
 /**
