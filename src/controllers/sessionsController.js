@@ -1,8 +1,8 @@
-const knex = require("../database/knex")
 const { compare } = require('bcryptjs')
+const { sign } = require("jsonwebtoken")
+const knex = require("../database/knex")
 const authConfig = require('../configs/auth')
 const AppError = require('../utils/appError')
-const { sign } = require("jsonwebtoken")
 
 class SessionsController {
   async create(request, response) {
@@ -26,7 +26,16 @@ class SessionsController {
       expiresIn
     })
 
-    return response.json({ user, token })
+    response.cookie('token', token, {
+      httpOnly: true,
+      sameSite: 'none',
+      secure: true,
+      maxAge: 15 * 60 * 1000 //15min
+    })
+
+    delete user.password
+
+    return response.json({ user })
   }
 }
 
