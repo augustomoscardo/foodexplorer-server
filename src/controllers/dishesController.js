@@ -27,7 +27,28 @@ class DishesController {
     return response.status(201).json({ message: 'Prato cadastrado com sucesso.' })
   }
 
-  update(request, response) { }
+  async update(request, response) {
+    const { title, description, price, category, ingredients } = request.body
+    const { id } = request.params
+
+    const dish = await knex('dishes').where({ id })
+    const dishIngredients = await knex('ingredients').where({ dish_id: id })
+    console.log(dishIngredients);
+
+    await knex('dishes').where({ id }).update({
+      title,
+      description,
+      price,
+      category,
+      updated_at: knex.fn.now()
+    })
+
+    if (!dish) {
+      throw new AppError('Prato não encontrado')
+    }
+
+    return response.status(200).json(dish)
+  }
 
   async index(request, response) {
     const { title, ingredients } = request.query
