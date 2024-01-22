@@ -1,8 +1,10 @@
 require('express-async-errors')
+
 const express = require('express')
 const cors = require('cors')
 const routes = require('./routes')
-const database = require("./database/sqlite")
+const cookieParser = require('cookie-parser')
+// const database = require("./database/sqlite")
 
 const app = express()
 
@@ -10,7 +12,11 @@ const AppError = require('./utils/appError')
 
 // database()
 
-app.use(cors())
+app.use(cookieParser())
+app.use(cors({
+  origin: ['http://localhost:5173', '127.0.0.1:5173'],
+  credentials: true
+}))
 app.use(express.json())
 app.use(routes)
 
