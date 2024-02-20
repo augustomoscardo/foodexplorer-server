@@ -21,7 +21,8 @@ class SessionsController {
     }
 
     const { secret, expiresIn } = authConfig.jwt
-    const token = sign({}, secret, {
+
+    const token = sign({ role: user.role }, secret, {
       subject: String(user.id),
       expiresIn
     })
@@ -30,12 +31,12 @@ class SessionsController {
       httpOnly: true,
       sameSite: 'none',
       secure: true,
-      maxAge: 15 * 60 * 1000 //15min
+      maxAge: 60 * 60 * 1000 //60min
     })
 
     delete user.password
 
-    return response.json({ user })
+    return response.status(201).json({ user })
   }
 }
 

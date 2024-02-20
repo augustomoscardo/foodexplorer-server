@@ -5,6 +5,7 @@ const uploadConfig = require('../configs/upload')
 const DiskStorage = require('../providers/diskStorage')
 
 class DishAvatarController {
+
   async update(request, response) {
     console.log(request.file.filename);
 
