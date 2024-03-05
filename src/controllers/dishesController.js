@@ -116,6 +116,8 @@ class DishesController {
 
     const ingredients = await knex('ingredients').where({ dish_id: id }).orderBy('name')
 
+    dish.ingredients = ingredients
+
     return response.status(200).json({
       dish,
       ingredients
